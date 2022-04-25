@@ -9,6 +9,10 @@ todo TEXT NOT NULL
 );
 `);
 
+function getAllTodo(){
+    const todos = db.prepare(`SELECT * FROM todo`).all()
+    return todos
+}
 
 
 function createTodo(todo){
@@ -17,20 +21,20 @@ function createTodo(todo){
 }
 
 
-function findTodo(todo){
+function getTodo(todo){
     const todo2 = db.prepare(`
-    SELECT * FROM todo WHERE todo = ?`).get(todo);
+    SELECT * FROM todo WHERE todoId = ?`).get(todo);
     if(!todo2){
-        console.log('there is no user by that name')
         return false
     }
     else{return todo2}
 }
 
-createTodo('code todoApi')
+
 
 module.exports = {
+    getAllTodo,
     createTodo,
-    findTodo,
+    getTodo,
 }
 //
