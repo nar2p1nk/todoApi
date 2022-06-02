@@ -1,10 +1,18 @@
 const express = require('express');
 const model = require('./model');
+const cors = require('cors');
 const app = express();
 
-app.use(express.json)
+//app.use(express.json)
 
-app.get('/',(req,res)=>{
+app.use(cors())
+
+
+app.get('',(req,res)=>{
+    res.json({'hello':'world'})
+})
+
+app.get('/todo',(req,res)=>{
     res.json(model.getAllTodo())
 })
 
