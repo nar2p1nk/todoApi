@@ -5,7 +5,8 @@ const db = new sqlite('todo.db');
 
 db.exec(`CREATE TABLE IF NOT EXISTS todo(
 todoId INTEGER PRIMARY KEY NOT NULL,
-todo TEXT NOT NULL
+todo TEXT NOT NULL,
+completed BOOLEAN NOT NULL CHECK (completed IN (0,1))
 );
 `);
 
@@ -14,6 +15,23 @@ function getAllTodo(){
     return todos
 }
 
+function getAllTrueTodo(){
+    const completedTodo = db.prepare(`
+    SELECT * FROM todo WHERE completed = 1`).all();
+    if(!completedTodo){
+        return false
+    }
+    else{return completedTodo}
+}
+
+function getAllFalseTodo(){
+    const uncompletedTodo = db.prepare(`
+    SELECT * FROM todo WHERE completed = 0`).all();
+    if(!uncompletedTodo){
+        return false
+    }
+    else{return uncompletedTodo}
+}
 
 function createTodo(todo){
     db.prepare(`INSERT INTO todo(todo) 
@@ -31,9 +49,10 @@ function getTodo(todo){
 }
 
 
-
 module.exports = {
     getAllTodo,
+    getAllTrueTodo,
+    getAllFalseTodo,
     createTodo,
     getTodo,
 }
