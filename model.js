@@ -48,6 +48,10 @@ function getTodo(todo){
     else{return todo2}
 }
 
+function deleteAllCompletedTodo(){
+    db.prepare(`DELETE FROM todo WHERE todo WHERE completed = 1`);
+}
+
 
 module.exports = {
     getAllTodo,
@@ -55,5 +59,6 @@ module.exports = {
     getAllFalseTodo,
     createTodo,
     getTodo,
+    deleteAllCompletedTodo,
 }
 //
