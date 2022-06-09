@@ -34,8 +34,8 @@ function getAllFalseTodo(){
 }
 
 function createTodo(todo){
-    db.prepare(`INSERT INTO todo(todo) 
-    VALUES(?)`).run(todo)
+    db.prepare(`INSERT INTO todo(todo,completed) 
+    VALUES(?,0)`).run(todo)
 }
 
 

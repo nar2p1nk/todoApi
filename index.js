@@ -2,8 +2,11 @@ const express = require('express');
 const model = require('./model');
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
 
-//app.use(express.json)
+app.use(bodyParser.urlencoded())
+app.use(bodyParser.json())
+
 
 app.use(cors())
 
@@ -25,7 +28,7 @@ app.post('/todo/post',(req,res)=>{
     const todo = req.body.todo;
     console.log(todo)
     model.createTodo(todo)
-    res.json({msg:'aight'})
+    res.json(model.getAllTodo())
 })
 
 
