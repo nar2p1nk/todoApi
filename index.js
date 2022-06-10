@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded())
+//app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
 
 
@@ -24,13 +24,20 @@ app.get('/todo/:id',(req,res)=>{
     res.json(model.getTodo(req.params.id))
 })
 
-app.post('/todo/post',(req,res)=>{
+app.post('/todo/create',(req,res)=>{
     const todo = req.body.todo;
     console.log(todo)
     model.createTodo(todo)
     res.json(model.getAllTodo())
 })
 
+app.post('/todo/complete',(req,res)=>{
+    const idsToComplete = req.body.list;
+    for( let id in idsToComplete){
+        model.completeTodo(idsToComplete[id])
+    }
+        res.json(model.getAllTodo())
+})
 
 app.listen(8000,()=>{
     console.log('port listening at localhost:8000/')
