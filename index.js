@@ -39,6 +39,15 @@ app.post('/todo/complete',(req,res)=>{
         res.json(model.getAllTodo())
 })
 
+app.post('/todo/delete',(req,res)=>{
+    const idsToDelete = req.body.list;
+    for(let id in idsToDelete){
+        model.deleteTodo(idsToDelete[id])
+    }
+
+    res.json(model.getAllTodo())
+})
+
 app.listen(8000,()=>{
     console.log('port listening at localhost:8000/')
 })

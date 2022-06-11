@@ -53,8 +53,12 @@ function completeTodo(id){
     db.prepare(`UPDATE todo SET completed = 1 WHERE todoId = ?`).run(id)
 }
 
+function deleteTodo(id){
+    db.prepare(`DELETE FROM todo WHERE todoId = ?`).run(id)
+}
+
 function deleteAllCompletedTodo(){
-    db.prepare(`DELETE FROM todo WHERE todo WHERE completed = 1`);
+    db.prepare(`DELETE FROM todo WHERE completed = 1`).all();
 }
 
 
@@ -65,6 +69,7 @@ module.exports = {
     createTodo,
     getTodo,
     completeTodo,
+    deleteTodo,
     deleteAllCompletedTodo,
 }
 //
